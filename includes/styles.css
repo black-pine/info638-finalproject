@@ -1,0 +1,428 @@
+/* cd /Applications/XAMPP/xamppfiles/htdocs/rmatsumo/headFiles
+sass styles.scss styles.css */
+/***** Attributes Order
+** postition / float
+** width / height
+** margins / padding
+** borders
+** backgrounds
+** content
+** z-index
+*****/
+/* https://www.color-hex.com/color-palette/107317 */
+/* ============================================= GENERAL ====================================== */
+body {
+  min-width: 875px;
+  margin: 0px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+  color: #0D0E10;
+}
+body ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+}
+body a {
+  text-decoration: none;
+  color: #75655E;
+}
+body a:hover {
+  text-decoration: underline;
+}
+body a:active {
+  color: #7DA2A5;
+}
+
+/* ============================================= HEADER ====================================== */
+header {
+  margin: 15px;
+}
+header #hgroup {
+  padding: 0px;
+}
+header #hgroup h1 {
+  display: inline-block;
+  margin: 0px;
+  padding: 5px 0px;
+  color: #4A3A34;
+  font-size: 36px;
+}
+header #hgroup h3 {
+  display: inline-block;
+  margin-top: 0px;
+  padding-top: 5px;
+  padding-left: 40px;
+  color: #4A3A34;
+}
+header nav {
+  background-color: #CED4D7;
+  text-transform: uppercase;
+  color: #4A3A34;
+}
+header nav > ul {
+  text-align: center;
+}
+header nav > ul > li:first-of-type {
+  float: left;
+  padding: 0px;
+  vertical-align: middle;
+  line-height: 49px;
+  font-size: 13px;
+}
+header nav > ul li {
+  display: inline-block;
+  padding: 15px 0px;
+}
+header nav > ul li ul {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+  position: absolute;
+  width: auto;
+  margin-left: -20px;
+  margin-top: 15px;
+  background-color: #CED4D7;
+  text-transform: lowercase;
+  text-align: left;
+}
+header nav > ul li ul li {
+  display: block;
+  padding: 4px 0px;
+}
+header nav > ul li ul li a {
+  display: block;
+  width: 100%;
+  padding: 0px 15px;
+}
+header nav > ul li:hover {
+  background-color: #CFC8C2;
+}
+header nav > ul li:hover ul {
+  visibility: visible;
+  opacity: 1;
+}
+header nav form {
+  float: right;
+  padding-right: 15px;
+  vertical-align: middle;
+  line-height: 49px;
+}
+header nav form input {
+  padding: 4px;
+}
+header nav form button {
+  padding: 4px 6px;
+}
+header a {
+  padding: 15px 20px;
+  color: #666261;
+}
+header a:active {
+  color: #0D0E10;
+}
+header a:hover {
+  text-decoration: none;
+  color: #4A3A34;
+}
+
+/* ============================================= CONTENT ====================================== */
+#content {
+  min-height: 575px;
+  padding: 0px 15px;
+  text-align: center;
+}
+#content h1 {
+  margin: 20px 0px 8px;
+  font-size: 3em;
+  color: #4A3A34;
+}
+#content h2 {
+  margin: 18px 0px;
+  font-size: 2em;
+  color: #4A3A34;
+}
+#content h3 {
+  margin-bottom: 7px;
+  font-size: 25px;
+  color: #4A3A34;
+}
+#content ul {
+  margin-bottom: 20px;
+}
+#content ul li {
+  display: inline-block;
+  margin: 0px 20px;
+  font-size: 20px;
+}
+#content p {
+  margin-top: 0px;
+  font-size: 19px;
+}
+#content form {
+  text-align: left;
+}
+#content form .formcol {
+  display: inline-block;
+  width: 33%;
+  vertical-align: top;
+}
+#content form label {
+  display: block;
+  margin: 5px 0px;
+}
+#content form input {
+  display: block;
+  margin: 8px 0px 5px;
+  padding: 2px;
+  width: 90%;
+}
+#content form select {
+  margin: 4px 0px;
+  padding: 4px;
+  font-size: 16px;
+}
+#content form button {
+  margin-top: 10px;
+  padding: 5px 6px;
+  font-size: 20px;
+}
+#content img {
+  width: 40%;
+  padding: 15px;
+}
+#content hr {
+  margin: 20px;
+}
+#content .req {
+  vertical-align: super;
+  color: #FF0000;
+  font-size: small;
+}
+#content #browseTable, #content #searchTable {
+  width: 100%;
+}
+#content #browseTable .browseToggles, #content #searchTable .browseToggles {
+  width: 175px;
+  margin-right: 10px;
+  text-align: center;
+}
+#content #browseTable .browseToggles li, #content #searchTable .browseToggles li {
+  display: inline-block;
+  width: 150px;
+  margin: 5px 0px;
+  padding: 5px;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  background-color: #CED4D7;
+  font-size: 16px;
+  color: #0D0E10;
+  cursor: pointer;
+}
+#content #browseTable td, #content #searchTable td {
+  vertical-align: top;
+}
+#content #browseTable .tableHolder, #content #searchTable .tableHolder {
+  width: 100%;
+}
+#content #browseTable table, #content #searchTable table {
+  border: 4px solid black;
+  border-collapse: collapse;
+  width: 100%;
+}
+#content #browseTable table tr:nth-child(even), #content #searchTable table tr:nth-child(even) {
+  background-color: #E8EEF1;
+}
+#content #browseTable table th, #content #searchTable table th {
+  padding: 4px;
+  border: 1px solid black;
+  background-color: #CED4D7;
+  font-size: 17px;
+}
+#content #browseTable table tbody tr:hover, #content #searchTable table tbody tr:hover {
+  background-color: #CFC8C2;
+  cursor: pointer;
+}
+#content #browseTable table td, #content #searchTable table td {
+  padding: 2px 5px;
+  border-right: 1px solid #82888B;
+  vertical-align: middle;
+}
+#content #browseTable table td.tasting, #content #browseTable table td.region, #content #browseTable table td.varietal, #content #browseTable table td.qscore, #content #browseTable table td.roasterloc, #content #searchTable table td.tasting, #content #searchTable table td.region, #content #searchTable table td.varietal, #content #searchTable table td.qscore, #content #searchTable table td.roasterloc {
+  font-size: 14px;
+}
+#content #browseTable table td.origin, #content #browseTable table td.species, #content #searchTable table td.origin, #content #searchTable table td.species {
+  font-size: 16px;
+}
+#content #home {
+  display: inline-block;
+  width: 60%;
+  padding-top: 50px;
+  vertical-align: top;
+  font-size: 20px;
+}
+#content #home p {
+  margin: 10px 0px;
+  font-size: 25px;
+}
+#content #home p img {
+  width: 20px;
+  padding: 0px 4px;
+}
+#content #featured {
+  display: inline-block;
+  width: 30%;
+}
+#content #featured p {
+  margin-bottom: 0px;
+}
+#content #featured h3 {
+  margin-top: 7px;
+}
+#content #featured img {
+  width: 100%;
+  padding: 0px;
+}
+#content #roasterfarmers {
+  display: inline-block;
+  width: 40%;
+  vertical-align: top;
+  padding: 15px;
+}
+#content #roasterfarmers h3 {
+  margin: 12px 0px;
+}
+#content #roasterfarmers p {
+  margin: 5px;
+}
+#content #roasterfarmers .farm {
+  margin-bottom: 36px;
+}
+#content #roasterfarmers .label {
+  color: #4A3A34;
+  font-weight: 600;
+}
+#content #changelists {
+  display: inline-block;
+  width: 20%;
+  vertical-align: top;
+}
+#content #changelists form {
+  margin-bottom: 50px;
+}
+#content #changelists form input, #content #changelists form select {
+  width: 100%;
+  margin: 5px 0px;
+  box-sizing: border-box;
+  font-size: 15px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+}
+#content #changelists form button {
+  float: right;
+  margin: 4px;
+  padding: 4px;
+  font-size: 16px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+}
+#content #userlists {
+  display: inline-block;
+  width: 80%;
+}
+#content #userlists h2 {
+  margin: 0px;
+  font-size: 35px;
+}
+#content #userlists h3 {
+  margin: 15px 0px 10px 10px;
+  padding: 10px 0px;
+  background-color: #4A3A34;
+  color: #CED4D7;
+}
+#content .favs li {
+  width: 275px;
+  margin-bottom: 20px;
+  vertical-align: top;
+  font-size: 17px;
+}
+#content .favs li .favtext {
+  display: inline-block;
+  width: 230px;
+}
+#content .favs li .flavornotes {
+  font-size: 14px;
+}
+#content .favs li img {
+  width: 100%;
+  padding: 0px;
+}
+#content .favs li form {
+  display: inline;
+  vertical-align: top;
+}
+#content .favs li form button {
+  margin-top: 3px;
+  padding: 3px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+  font-size: 12px;
+  color: #0D0E10;
+}
+#content #coffeeadd {
+  position: absolute;
+  top: 160px;
+  right: 15px;
+  margin-top: 10px;
+  padding: 7px 4px;
+  border: 2px dotted #9C958F;
+  text-align: right;
+}
+#content #coffeeadd form {
+  text-align: right;
+}
+#content #coffeeadd form select {
+  width: 150px;
+  margin: 0px 5px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+}
+#content #coffeeadd form button {
+  margin: 0px;
+  padding: 4px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+}
+#content #coffeeadd p {
+  margin: 5px 0px;
+  font-size: 14px;
+}
+#content #formp {
+  width: 350px;
+  margin: auto;
+  margin-bottom: -8px;
+  padding-top: 15px;
+  text-align: right;
+  font-size: 14px;
+}
+#content .authentication {
+  width: 350px;
+  margin: auto;
+}
+#content .authentication input {
+  width: 100%;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+}
+#content .authentication input[type=submit] {
+  width: 33%;
+  margin: auto;
+  margin-top: 15px;
+  font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
+}
+
+/* ============================================= FOOTER ====================================== */
+footer {
+  margin-top: 30px;
+  padding: 10px;
+  background-color: #CED4D7;
+  text-align: right;
+  color: #0D0E10;
+}
+
+/*# sourceMappingURL=styles.css.map */
