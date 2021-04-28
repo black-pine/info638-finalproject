@@ -18,6 +18,12 @@
 		$signupQuery = "INSERT INTO user VALUES (NULL, '$fname', '$lname', '$username', '$password')";
 		$signupResults = $connect->query($signupQuery);
 		if (!$signupResults) { die($connect->error); }
+
+		// create a default "favorites" list for the user
+		$newUserId = $connect->insert_id;
+		$defaultListQuery = "INSERT INTO list VALUES (NULL, $newUserId, 'Favorites')";
+		$defaultListResults = $connect->query($defaultListQuery);
+		if (!$defaultListResults) { die($connect->error); }
 		
 		$connect->close();
 		// show success message and link to login page
