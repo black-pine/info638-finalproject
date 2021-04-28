@@ -53,6 +53,31 @@
 				if ($row['q_score']) { array_push($coffeeData['farms'][$row['farm_id']]['qscore'], $row['q_score']); }
 			}
 
+			// User box to add coffee to list
+			echo "<div id='coffeeadd'>";
+			if(isset($_SESSION['user_id'])) {
+				$successmsg = "";
+				if(isset($_POST['submit']) && isset($_POST['list']) && !empty($_POST['list'])) {
+					$addQuery = "INSERT INTO favorite VALUES (NULL, ".$_POST['list'].", ".sanitizeSQL($connect, $_GET['id']).")";
+					$addResults = $connect->query($addQuery);
+					if (!$addResults) { die($connect->error); }
+					$successmsg = "<p><i>Successfully added to your list</i></p>";
+				}
+
+				echo "<b>Hello ".$_SESSION['first_name']."!</b><form method='POST' action=''><label for='list'>Save this coffee to a list</label><select name='list'>";
+				$listQuery = "SELECT list_id, list_name FROM list WHERE user_id = ".$_SESSION['user_id'];
+				$listResults = $connect->query($listQuery);
+				if (!$listResults) { die($connect->error); }
+				while ($row = $listResults->fetch_assoc()) {
+					echo "<option value='".$row['list_id']."'>".$row['list_name']."</option>";
+				}
+				echo "</select><button type='submit' name='submit'>Add</button></form>$successmsg";
+			}
+			else {
+				echo "<a href='./login.php'>Sign in to save this coffee!</a>";
+			}
+			echo "</div>";
+
 			// Print out gathered data about the single coffee product
 			echo "<div id='coffeeHeader'><h1>".$coffeeData['coffee']."</h1>";
 			echo "<p><i>".$coffeeData['roast']." roast | ".$coffeeData['blend']."<br/>".$coffeeData['tasting']."</i></p></div>";
@@ -82,31 +107,6 @@
 			}
 			echo "<hr><h3><a href='javascript:;' onclick='searchLink(\"roaster_roaster_name\",this)'>".$coffeeData['roaster']."</a></h3>";
 			echo "<p>".$coffeeData['roasterloc']."</p><p><a href='".$coffeeData['purchase']."'>Purchase a ".$coffeeData['retail'].'g bag from the roaster for $'.$coffeeData['price']."</a></p></div>";
-
-			// User box to add coffee to list
-			echo "<div id='coffeeadd'>";
-			if(isset($_SESSION['user_id'])) {
-				$successmsg = "";
-				if(isset($_POST['submit']) && isset($_POST['list']) && !empty($_POST['list'])) {
-					$addQuery = "INSERT INTO favorite VALUES (NULL, ".$_POST['list'].", ".sanitizeSQL($connect, $_GET['id']).")";
-					$addResults = $connect->query($addQuery);
-					if (!$addResults) { die($connect->error); }
-					$successmsg = "<p><i>Successfully added to your list</i></p>";
-				}
-
-				echo "<b>Hello ".$_SESSION['first_name']."!</b><form method='POST' action=''><label for='list'>Save this coffee to a list</label><select name='list'>";
-				$listQuery = "SELECT list_id, list_name FROM list WHERE user_id = ".$_SESSION['user_id'];
-				$listResults = $connect->query($listQuery);
-				if (!$listResults) { die($connect->error); }
-				while ($row = $listResults->fetch_assoc()) {
-					echo "<option value='".$row['list_id']."'>".$row['list_name']."</option>";
-				}
-				echo "</select><button type='submit' name='submit'>Add</button></form>$successmsg";
-			}
-			else {
-				echo "<a href='./login.php'>Sign in to save this coffee!</a>";
-			}
-			echo "</div>";
 
 		}
 	}

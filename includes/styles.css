@@ -12,7 +12,7 @@ sass styles.scss styles.css */
 /* https://www.color-hex.com/color-palette/107317 */
 /* ============================================= GENERAL ====================================== */
 body {
-  min-width: 875px;
+  min-width: 720px;
   margin: 0px;
   font-family: Cinzel, Georgia, "Times New Roman", Times, serif;
   color: #0D0E10;
@@ -163,7 +163,7 @@ header a:hover {
 }
 #content form .formcol {
   display: inline-block;
-  width: 33%;
+  width: 32%;
   vertical-align: top;
 }
 #content form label {
@@ -369,10 +369,9 @@ header a:hover {
   padding-right: 200px;
 }
 #content #coffeeadd {
-  position: absolute;
-  top: 160px;
-  right: 15px;
-  margin-top: 10px;
+  position: relative;
+  float: right;
+  bottom: 10px;
   padding: 7px 4px;
   border: 2px dotted #9C958F;
   text-align: right;
