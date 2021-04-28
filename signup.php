@@ -3,8 +3,8 @@
 	require_once './includes/include.php';
 
 	echo "<h3>Sign Up</h3>";
-	echo "<p><a href='./login.php'>Or log in here</a></p>";
 
+	// insert new account information into user table
 	if(isset($_POST['submit'])) {
 		$connect = new mysqli($hn, $un, $pw, $db);
 		if ($connect->connect_error) { die($connect->connect_error); }
@@ -20,9 +20,11 @@
 		if (!$signupResults) { die($connect->error); }
 		
 		$connect->close();
-		
+		// show success message and link to login page
 		echo "<p><a href='./login.php'>Successful registration! Log in here.</a></p>";
 	}
+	// show option to log in if user did not just create an account
+	else { echo "<p><a href='./login.php'>Or log in here</a></p>"; }
 ?>
 
 <p id='formp'><span class='req'>*</span> indicates a required field</p>

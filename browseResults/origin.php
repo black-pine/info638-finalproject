@@ -5,6 +5,7 @@
 ?>
 <tr>
 	<td>
+		<!-- query database for all farm origins, print each result as a navigation list item, & save each result to an array -->
 		<ul class='browseToggles'>
 			<?php
 				$navItem = array();
@@ -48,14 +49,16 @@
 			</thead>
 
 				<?php
+					// for each item from the navigation (saved in an array), create a <tbody> element with relevant items as rows
 					foreach ($navItem as $originCountry) {
 						$originCountryId = str_replace(' ', '', $originCountry);
 						echo "<tbody id='$originCountryId' hidden>";
 						$originQuery = "$browseSelect $tableJoin WHERE farm.origin = '$originCountry' ORDER BY coffee.coffee_id";
 						$originResults = $connect->query($originQuery);
-						if (!$originResults) die($connect->error);
+						if (!$originResults) { die($connect->error); }
 						$coffeeData = array('id' => 0);
 						while ($row = $originResults->fetch_assoc()) {
+							// initialize information for a coffee item
 							if ($coffeeData['id'] != $row['coffee_id']) {
 								// if not the first $row entry then print the existing $coffeeData before overwriting
 								if ($coffeeData['id'] != 0) { printOriginRow($coffeeData); }
@@ -105,30 +108,27 @@
 ?>
 
 <script>
+	// default to showing the first <tbody> / navigation item
 	$(function() {
 		$("tbody[hidden]:first").toggle();
 		$(".browseToggles li:first").css('background-color', '#9C958F');
 	});
 	
 	$(".originNav").click(function() {
+		// toggle to show/hide the <tbody> element relating to the clicked on navigation item
 		var tbodyId = $(this).text().replace(/ /g, "");
 		$('#'+tbodyId).toggle();
-		if ($(this).css('background-color') == 'rgb(156, 149, 143)') {
-			$(this).css('background-color', '#CED4D7');
-		}
-		else {
-			$(this).css('background-color', '#9C958F');
-		}
-
+		// toggle navigation item background color
+		$(this).css('background-color') == 'rgb(156, 149, 143)' ? $(this).css('background-color', '#CED4D7') : $(this).css('background-color', '#9C958F');
+		// shade every other row based on all currently visible rows
 		$('tbody[style="display: table-row-group;"] tr:even').css('background-color', '#FFFFFF');
 		$('tbody[style="display: table-row-group;"] tr:odd').css('background-color', '#E8EEF1');
-
-		$('tbody[style="display: table-row-group;"] tr:even').hover(function() { $(this).css('background-color', '#CFC8C2'); }, 
-			function() { $(this).css('background-color', '#FFFFFF'); });
-		$('tbody[style="display: table-row-group;"] tr:odd').hover(function() { $(this).css('background-color', '#CFC8C2'); }, 
-			function() { $(this).css('background-color', '#E8EEF1'); });
+		// hover effect to change background color (for both shaded & non-shaded rows)
+		$('tbody[style="display: table-row-group;"] tr:even').hover(function() { $(this).css('background-color', '#CFC8C2'); }, function() { $(this).css('background-color', '#FFFFFF'); });
+		$('tbody[style="display: table-row-group;"] tr:odd').hover(function() { $(this).css('background-color', '#CFC8C2'); }, function() { $(this).css('background-color', '#E8EEF1'); });
 	});
 
+	// make each row linkable to the coffee item page
 	$(".tableHolder tbody tr").click(function() {
 		window.location.href = './coffee.php?id=' + $(this).attr('href');
 	});

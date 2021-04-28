@@ -2,6 +2,7 @@
 	include_once './includes/header.php';
 	require_once './includes/include.php';
 
+	// end session
 	$_SESSION = array();
 	session_destroy();
 

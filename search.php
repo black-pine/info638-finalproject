@@ -7,18 +7,19 @@
 	if ($connect->connect_error) { die($connect->connect_error); }
 	$searchClause = "";
 
+	// if general search from the search bar
 	if (isset($_GET['q']) && !empty($_GET['q'])) {
 		$searchReq = 'Search query: <i>'.sanitizeString($_GET['q']).'</i>';
 		$safeSearch = sanitizeSQL($connect, $_GET['q']);
 
-		// build search clause comparing all SELECTed columns against the $safeSearch term(s)
+		// build search clause comparing all SELECTed columns against the $safeSearch term
 		$searchAttrs = explode(', ', substr($searchSelect, 7));
 		foreach ($searchAttrs as $k => $col) {
 			$searchClause .= "$col LIKE '%$safeSearch%'";
 			if ($k != array_key_last($searchAttrs)) { $searchClause .= ' OR '; }
 		}
 	}
-		// If advanced search (or from item page)
+	// if advanced search (or from item page)
 	else if (count($_POST) != 0) {
 		$searchReq = "";
 		foreach ($_POST as $col => $val) {
@@ -30,7 +31,7 @@
 				$safeVal = sanitizeSQL($connect, $val);
 				$searchClause .= "$attr LIKE '%$safeVal%'";
 
-				// switch to build search display
+				// switch-case to build search query display
 				switch ($col) {
 					case "coffee_coffee_name":
 						$searchReq .= "Coffee Name: <i>".sanitizeString($val)."</i><br/>";
@@ -95,7 +96,7 @@
 	}
 
 	echo "<p>$searchReq</p>";
-	// inital query to pull which coffees match search terms
+	// query to pull coffee items that match the search term(s)
 	$searchQuery = "$searchSelect $tableJoin WHERE coffee.coffee_id IN (SELECT coffee.coffee_id $tableJoin WHERE $searchClause) ORDER BY coffee.coffee_name, blend.coffee_id";
 	$searchResults = $connect->query($searchQuery);
 	if (!$searchResults) { die($connect->error); }
@@ -155,7 +156,7 @@
 			$coffeeData['harvest'] = array();
 			if ($row['harvest']) { array_push($coffeeData['harvest'], (int)substr($row['harvest'], 0, 4)); }
 		}
-		// if additional bean entry for same coffee
+		// if additional bean entry for the same coffee
 		else {
 			array_push($coffeeData['farm'], $row['farm_name']);
 			array_push($coffeeData['origin'], '<i>'.$row['region'].'</i> <span class="origin">('.$row['origin'].')</span>');
@@ -166,6 +167,7 @@
 			if ($row['harvest']) { array_push($coffeeData['harvest'], (int)substr($row['harvest'], 0, 4)); }
 		}
 	}
+	// print final row of coffee data
 	printSearchRow($coffeeData);
 	echo "</tbody></table></div>";
 
@@ -176,6 +178,7 @@
 
 
 	function printSearchRow($coffeeData) {
+		// create ranges for items with multiple values 
 		if (!empty($coffeeData['qscore'])) { $coffeeData['qscore'] = valRange($coffeeData['qscore']); }
 		else { $coffeeData['qscore'] = ''; }
 		if (!empty($coffeeData['harvest'])) { $coffeeData['harvest'] = valRange($coffeeData['harvest']); }
@@ -194,6 +197,7 @@
 ?>
 
 <script>
+	// make each row linkable to the coffee item page
 	$("#searchTable tbody tr").click(function() {
 		window.location.href = './coffee.php?id=' + $(this).attr('href');
 	});

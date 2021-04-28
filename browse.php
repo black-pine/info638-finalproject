@@ -4,6 +4,7 @@
 ?>
 
 <h3>Browse Coffees</h3>
+<!-- nav for the different browse categories -->
 <ul>
 	<li><a class='browseItems' id='origin' href='javascript:;'>by Country of Origin</a></li>
 	<li><a class='browseItems' id='roaster' href='javascript:;'>by Roaster</a></li>

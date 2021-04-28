@@ -35,6 +35,7 @@
 					$coffeeData['farms'] = array();
 				}
 				if (!array_key_exists($row['farm_id'], $coffeeData['farms'])) {
+					// initialize farm array in $coffeeData
 					$coffeeData['farms'][$row['farm_id']] = array(
 						'name' => $row['farm_name'],
 						'origin' => $row['origin'],
@@ -46,6 +47,7 @@
 						'qscore' => array()
 					);
 				}
+				// add farm information
 				array_push($coffeeData['farms'][$row['farm_id']]['altitude'], $row['altitude']);
 				array_push($coffeeData['farms'][$row['farm_id']]['varietal'], $row['varietal']);
 				array_push($coffeeData['farms'][$row['farm_id']]['processing'], $row['processing']);
@@ -53,26 +55,33 @@
 				if ($row['q_score']) { array_push($coffeeData['farms'][$row['farm_id']]['qscore'], $row['q_score']); }
 			}
 
-			// User box to add coffee to list
+			// user box to add coffee to list
 			echo "<div id='coffeeadd'>";
 			if(isset($_SESSION['user_id'])) {
 				$successmsg = "";
+				// insert query with success message if the form was submitted
 				if(isset($_POST['submit']) && isset($_POST['list']) && !empty($_POST['list'])) {
 					$addQuery = "INSERT INTO favorite VALUES (NULL, ".$_POST['list'].", ".sanitizeSQL($connect, $_GET['id']).")";
 					$addResults = $connect->query($addQuery);
 					if (!$addResults) { die($connect->error); }
 					$successmsg = "<p><i>Successfully added to your list</i></p>";
 				}
-
-				echo "<b>Hello ".$_SESSION['first_name']."!</b><form method='POST' action=''><label for='list'>Save this coffee to a list</label><select name='list'>";
+				// form to save coffee using a drop down select of lists owned by the logged in user
+				echo "<b>Hello ".$_SESSION['first_name']."!</b>";
 				$listQuery = "SELECT list_id, list_name FROM list WHERE user_id = ".$_SESSION['user_id'];
 				$listResults = $connect->query($listQuery);
 				if (!$listResults) { die($connect->error); }
-				while ($row = $listResults->fetch_assoc()) {
-					echo "<option value='".$row['list_id']."'>".$row['list_name']."</option>";
+				// if the user has no lists link to the user page to create one instead of showing the form
+				if ($listResults->num_rows == 0) { echo "<br/><a href='./user.php'>Create a list to save this coffee</a>"; }
+				else {
+					echo "<form method='POST' action=''><label for='list'>Save this coffee to a list</label><select name='list'>";
+					while ($row = $listResults->fetch_assoc()) {
+						echo "<option value='".$row['list_id']."'>".$row['list_name']."</option>";
+					}
+					echo "</select><button type='submit' name='submit'>Add</button></form>$successmsg";
 				}
-				echo "</select><button type='submit' name='submit'>Add</button></form>$successmsg";
 			}
+			// if no user is logged in
 			else {
 				echo "<a href='./login.php'>Sign in to save this coffee!</a>";
 			}

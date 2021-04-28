@@ -7,7 +7,7 @@
 	echo "<h2>Explore Coffee</h2>";
 	echo "<div id='featured'>";
 	echo "<p>Discover a random coffee:</p>";
-
+	// select a random coffee to be "featured"
 	$randQuery = "SELECT * FROM coffee ORDER BY RAND() LIMIT 1";
 	$randResults = $connect->query($randQuery);
 	if (!$randResults) { die($connect->error); }
@@ -23,18 +23,22 @@
 	<p><img src='./images/faviconbean.png'><a href='./browse.php?origin'>Brazilian coffees?</a></p>
 	<p><img src='./images/faviconbean.png'><a href='./search.php?q=chocolate'>Chocolatey coffees?</a></p>
 	<p><img src='./images/faviconbean.png'><a href='./browse.php?species'>Specialty robustas?</a></p>
-
 <?php
+	// link to the coffee item with the max q_score value (if no coffees have a q_score, skip this link)
 	$ratingQuery = "SELECT coffee.coffee_id FROM coffee JOIN blend ON coffee.coffee_id = blend.coffee_id JOIN bean ON blend.blend_id = bean.bean_id ORDER BY bean.q_score DESC LIMIT 1";
 	$ratingResults = $connect->query($ratingQuery);
 	if (!$ratingResults) { die($connect->error); }
-	$topRated = $ratingResults->fetch_assoc();
-	echo "<p><img src='./images/faviconbean.png'><a href='./coffee.php?id=".$topRated['coffee_id']."'>The top rated coffee?</a></p>";
+	if ($ratingResults->num_rows == 0) { echo "<br/>"; }
+	else {
+		$topRated = $ratingResults->fetch_assoc();
+		echo "<p><img src='./images/faviconbean.png'><a href='./coffee.php?id=".$topRated['coffee_id']."'>The top rated coffee?</a></p><br/>";
+	}
 	$ratingResults->close();
-
-	echo "<br/><p><a href='./advancedsearch.php'>Or search to find exactly what you are looking for.</a><img src='./images/faviconbean.png'></p>";
-	echo "</div>";
-
 	$connect->close();
+?>
+	<p><a href='./advancedsearch.php'>Or search to find exactly what you are looking for.</a><img src='./images/faviconbean.png'></p>
+</div>
+
+<?php
 	include_once './includes/footer.php';
 ?>
