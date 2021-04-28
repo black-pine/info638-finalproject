@@ -365,6 +365,9 @@ header a:hover {
   font-size: 12px;
   color: #0D0E10;
 }
+#content #coffeeHeader {
+  padding-right: 200px;
+}
 #content #coffeeadd {
   position: absolute;
   top: 160px;

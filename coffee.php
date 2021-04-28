@@ -54,8 +54,8 @@
 			}
 
 			// Print out gathered data about the single coffee product
-			echo "<h1>".$coffeeData['coffee']."</h1>";
-			echo "<p><i>".$coffeeData['roast']." roast | ".$coffeeData['blend']."<br/>".$coffeeData['tasting']."</i></p>";
+			echo "<div id='coffeeHeader'><h1>".$coffeeData['coffee']."</h1>";
+			echo "<p><i>".$coffeeData['roast']." roast | ".$coffeeData['blend']."<br/>".$coffeeData['tasting']."</i></p></div>";
 			echo "<img src='./images/".$coffeeData['img']."'/>";
 			echo "<div id='roasterfarmers'>";
 
