@@ -11,8 +11,6 @@
 
 		$username = sanitizeSQL($connect, $_POST['username']);
 		$password = sanitizeSQL($connect, $_POST['password']);
-		$salt1 = "2T(3n";
-		$salt2 = "#x^rA0";
 		$password = hash('ripemd128',$salt1.$password.$salt2);
 
 		$loginQuery = "SELECT user_id, first_name FROM user WHERE username = '$username' AND password = '$password'";

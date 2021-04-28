@@ -13,8 +13,6 @@
 		$lname = sanitizeSQL($connect, $_POST['lname']);
 		$username = sanitizeSQL($connect, $_POST['username']);
 		$password = sanitizeSQL($connect, $_POST['password']);
-		$salt1 = "2T(3n";
-		$salt2 = "#x^rA0";
 		$password = hash('ripemd128',$salt1.$password.$salt2);
 
 		$signupQuery = "INSERT INTO user VALUES (NULL, '$fname', '$lname', '$username', '$password')";
