@@ -83,7 +83,7 @@
 			}
 			// if no user is logged in
 			else {
-				echo "<a href='./login.php'>Sign in to save this coffee!</a>";
+				echo "<a href='./login.php'>Log in to save this coffee!</a>";
 			}
 			echo "</div>";
 
@@ -118,10 +118,15 @@
 			echo "<p>".$coffeeData['roasterloc']."</p><p><a href='".$coffeeData['purchase']."'>Purchase a ".$coffeeData['retail'].'g bag from the roaster for $'.$coffeeData['price']."</a></p></div>";
 
 		}
+
+		$itemResults->close();
+		$connect->close();
 	}
 
-	$itemResults->close();
-	$connect->close();
+	else {
+		echo "<p>This coffee could not be found.</p>";
+	}
+
 	include_once './includes/footer.php';
 ?>
 
